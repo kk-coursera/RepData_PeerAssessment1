@@ -1,4 +1,9 @@
-# Reproducible Research: Peer Assessment 1
+---
+title: "Reproducible Research: Peer Assessment 1"
+output: 
+  html_document:
+    keep_md: true
+---
 <br>
 
 ## Loading and preprocessing the data
@@ -35,7 +40,7 @@ StepsPerDay <- na.omit(StepsPerDay)
 hist(StepsPerDay)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
 
 Mean steps per day
 
@@ -73,7 +78,7 @@ plot(names(AverageStepsDayInterval), AverageStepsDayInterval, type = 'l',
      xlab = "Day Interval", ylab = "Number Steps")
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png) 
 
 The 5-minute interval, on average across all the days in the dataset, that contains the maximum number of steps
 
@@ -139,7 +144,7 @@ names(StepsPerDay) <- Days
 hist(StepsPerDay)
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-9-1.png) 
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png) 
 
 Calculate and report the mean total number of steps taken per day
 
@@ -182,7 +187,7 @@ TidyData$WeekDays <- weekdays(as.Date(TidyData$date))
 TidyData$TypeDay <- sapply(TidyData$WeekDays, function(x,y){
           if(x %in% y) "weekend"
           else "weekday"
-      }, y = c("sÃ¡bado", "domingo")) # SÃ¡bado, Domingo means Saturday, Sunday in Spanish
+      }, y = c("sábado", "domingo")) # Sábado, Domingo means Saturday, Sunday in Spanish
 # transform the day type to factor
 TidyData$TypeDay <- as.factor(TidyData$TypeDay)
 ```
@@ -207,16 +212,9 @@ df <- data.frame(steps = unname(AverageStepsDayIntervalTypeDay), interval = Inte
                  typeDay = TypeDay)
 # load ggplot2 package
 library(ggplot2)
-```
-
-```
-## Warning: package 'ggplot2' was built under R version 3.1.2
-```
-
-```r
 # do the plot
 p <- ggplot(df, aes(x=interval, y=steps)) + facet_grid(typeDay ~ .)
 p + geom_line(aes(group=typeDay)) + scale_x_discrete(breaks = seq(0,2355, by = 250))
 ```
 
-![](./PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-13-1.png) 
